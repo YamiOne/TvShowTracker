@@ -1,0 +1,18 @@
+extends layout
+
+block head
+
+block content
+    h1= title
+    h3
+        | found a total of 
+        span#count= shows.length
+        |  show(s):
+    div#show-list
+        div.week-wrapper
+            each show in shows
+                div(class = "day" show_id = show.id)
+                    span= show.title
+    div#block-options.block-options
+        span(class = "fa fa-pencil edit")
+        span(class = "fa fa-times remove")

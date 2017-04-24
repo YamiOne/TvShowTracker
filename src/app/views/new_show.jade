@@ -1,0 +1,14 @@
+extends layout
+
+block content
+  h1 Add a new show
+  
+  form(novalidate, id = "show_form")
+    div.form-group
+        input(type = 'text', name = "title", id = "input_title", placeholder = 'Title')
+    div.week-wrapper
+        each day, index in days
+            div(class = "day", id = "day_" + index, day_val = index)
+                span= day
+    div.form-footer
+        button(type = 'button', class = 'btn btn--success' id = "btn_submit") Add

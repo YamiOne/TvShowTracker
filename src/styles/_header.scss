@@ -1,0 +1,24 @@
+$navbar_background: #FFF;
+$navbar_shadow: #000;
+
+.navbar {
+    display: flex;
+    flex-flow: row;
+    width: 100%;
+    background-color: red;
+    box-shadow: 1px 1px 1px $navbar_shadow;
+    justify-content: center;
+
+    &__wrapper {
+        display: flex;
+        justify-content: center;
+        max-width: 1280px;
+        width: 100%;
+    }
+}
+
+.tabs {
+    display: flex;
+    flex-flow: row wrap;
+    list-style: none;
+}

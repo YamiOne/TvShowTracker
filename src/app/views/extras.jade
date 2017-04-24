@@ -1,0 +1,18 @@
+extends layout
+
+block head
+  link(rel='stylesheet', href='/css/extras.css')
+
+block content
+  div#wrapper
+    h1= 'extras'
+    p= message
+    p this is just another example page.
+    if base
+      p= 'navigate to /extras/<anything-you-want> and see what happens!'
+    else
+      p return to 
+        a(href='/extras')= 'extras'
+
+block scripts
+  script(src='/js/fadeIn.js')

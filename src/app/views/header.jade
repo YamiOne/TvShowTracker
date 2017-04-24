@@ -1,0 +1,13 @@
+nav.navbar
+    div.navbar__wrapper
+        div.logo-holder
+            a(href = "/")
+                img(class = "logo" src = "/img/favicon.png")
+        ul.tabs
+            li(class = (page_id == 'home' ? 'tabs__tab tabs__tab--active' : 'tabs__tab'))
+                a(href='/')= 'today'
+            li(class = (page_id == 'all_shows' ? 'tabs__tab tabs__tab--active' : 'tabs__tab'))
+                a(href='/all_shows')= 'all shows'
+            li(class = (page_id == 'new_show' ? 'tabs__tab tabs__tab--active' : 'tabs__tab'))
+                a(href='/new_show')= 'new show'
+        a(href = "/logout") Logout

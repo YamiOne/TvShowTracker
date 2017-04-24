@@ -1,0 +1,10 @@
+extends layout
+
+block head
+  link(rel='stylesheet', href='/css/error.css')
+
+block content
+  h1
+    span.red= (error.status || 500) + ' Error! '
+    = message
+  pre= error.stack

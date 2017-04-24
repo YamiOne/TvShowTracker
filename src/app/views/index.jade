@@ -1,0 +1,10 @@
+extends layout
+
+block head
+  title= title
+
+block content
+        div.week-wrapper
+            each show in shows
+                div.day
+                    span= show.title

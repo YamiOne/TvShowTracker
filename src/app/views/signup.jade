@@ -1,0 +1,18 @@
+extends public_layout
+
+block content    
+        block content
+            div.login-form-wrapper
+                h1 TVShow Tracker | Register
+                
+                form(action = "/signup", method="post")
+                    div.form-group
+                        label Email
+                        input(type = "text", class = "form-control", name = "email", placeholder = "Email")
+                    div.form-group
+                        label Password
+                        input(type = "password", class = "form-control", name = "password", placeholder = "Password")
+                    button(type = "submit", class = "btn btn--success btn--login m-t--10") Register
+                    a(class = "btn btn--primary m-t--20" href = "/login") Back to Login
+        
+        script(src='/js/show.js')
