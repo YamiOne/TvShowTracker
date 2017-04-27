@@ -1,14 +1,13 @@
 'use strict';
 
 import express from 'express';
-import mongoose from 'mongoose';
+
+import Show from '../models/show';
 import isLoggedIn from './AuthController';
 
 const router = express.Router();
-const Show = mongoose.model('Show');
 
 router.get('/', isLoggedIn, (req, res, next) => {
-
     res.render('new_show', {
         page_id: 'new_show',
         days: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']

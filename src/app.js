@@ -11,6 +11,7 @@ import mongoose from 'mongoose';
 import session from 'express-session';
 import passport from 'passport';
 import flash from 'connect-flash';
+import Promise from "bluebird";
 
 // BASIC CONFIG
 const config = {
@@ -25,6 +26,8 @@ const config = {
   // path to root directory of this app
   root: path.normalize(__dirname)
 };
+
+mongoose.Promise = Promise;
 
 // EXPRESS SET-UP
 // create app
@@ -77,13 +80,17 @@ app.use((err, req, res, next) => {
 });
 
 // MONGOOSE SET-UP
-mongoose.connect(config.db, (err) => {
-    if (err) throw new Error(`unable to connect to database at ${config.db}`);
-    console.log(`Connected to the database: ${config.db}`);
+mongoose.connect(config.db)
+    .then( () => {
+        console.log(`Connected to the database: 
+            ${config.db}`);
 
-    // Populate DB with sample data
-    if(config.seedDB) require('./app/config/seed');
-});
+        // Populate DB with sample data
+        if(config.seedDB) require('./app/config/seed');
+    })
+    .catch(err => {
+        throw new Error(`unable to connect to database at ${config.db}`);
+    });
 
 mongoose.connection.on('disconnected', (err) => {
     console.log('MongoDB event disconnected');

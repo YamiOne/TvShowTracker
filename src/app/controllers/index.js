@@ -3,19 +3,16 @@
 // it also sets up basic express routes
 
 import express from 'express';
-import mongoose from 'mongoose';
 import passport from 'passport';
-import isLoggedIn from './AuthController';
 
-const Show = mongoose.model('Show');
+import UserController from './user';
+import isLoggedIn from './AuthController';
+import NewShowController from './new_show';
+import AllShowsController from './all_shows';
+import Show from '../models/show';
 
 // create router
 const router = express.Router();
-
-// load other controllers
-const UserController = require('./user');
-const NewShowController = require('./new_show');
-const AllShowsController = require('./all_shows');
 
 // Private routes - should be checked if user logged in
 router.use('/all_shows', AllShowsController);

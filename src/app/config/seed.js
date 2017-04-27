@@ -5,20 +5,7 @@
 
 'use strict';
 
-import User from '../models/user';
+// import User from '../models/user';
 
-const newUser = new User();
-
-User.find().remove();
-
-console.log('============== REMOVED ALL USERS ==============');
-
-newUser.local.email    = 'admin@email.com';
-newUser.local.password = newUser.generateHash('0000');
-
-// save the user
-newUser.save((err) => {
-    if (err) throw err;
-});
-
-console.log('============== SAVED ADMIN USER ==============');
+// User.find().remove();
+// console.log('----> REMOVED ALL USERS');

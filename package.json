@@ -13,6 +13,7 @@
   "private": true,
   "dependencies": {
     "bcrypt-nodejs": "0.0.3",
+    "bluebird": "^3.5.0",
     "body-parser": "^1.16.0",
     "compression": "^1.6.1",
     "connect-flash": "^0.1.1",
