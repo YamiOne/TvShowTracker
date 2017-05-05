@@ -1,11 +1,13 @@
 $navbar_background: #FFF;
 $navbar_shadow: #000;
 
-// fonts
-@import url('/fonts/Raleway-Regular.css');
+@import 'reset';
+@import 'fonts';
+@import 'header';
+@import 'elements';
 
 // variables
-$font-stack: Raleway-Regular, "Courier New", Courier, monospace;
+$font-stack: "Source Sans Pro", "Raleway-Regular", "Courier New", "Courier", "monospace";
 $base-color: rgba(189, 195, 199, 1);
 
 // semi-sensible defaults
@@ -22,7 +24,10 @@ body {
     font-size: 1.4rem;
     font-family: $font-stack;
     margin: 0;
-    min-height: 100;
+}
+
+* {
+    box-sizing: border-box;
 }
 
 @keyframes slide-in {
@@ -40,92 +45,27 @@ body {
     animation: slide-in 300ms ease-in forwards;
 }
 
-.navbar {
-    display: flex;
-    flex-flow: row;
-    width: 100%;
-    background-color: $navbar_background;
-    box-shadow: 0px 1px 16px 0px $navbar_shadow;
-    justify-content: center;
-
-    &__wrapper {
-        display: flex;
-        justify-content: space-around;
-        align-items: center;
-        max-width: 1280px;
-        width: 100%;
-
-        & a {
-            text-decoration: none;
-            color: #1a237e;
-        }
-    }
-}
-
-.logo-holder {
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-}
-
-.logo {
-    max-width: 100px;
-    max-height: 100px;
-}
-
-.tabs {
-    display: flex;
-    flex-flow: row wrap;
-    list-style: none;
-    justify-content: space-around;
-    padding-left: 0px;
-    margin-left: 30px;
-    width: 50%;
-
-    &__tab {
-
-        & a {
-            text-decoration: none;
-            color: #1a237e;
-            font-size: 18px;
-            transition: all 50ms ease-in-out;
-
-            &:hover {
-                color: #29abe2;
-            }
-        }
-
-        &--active {
-            border-bottom: 2px solid #51bbe7;
-        }
-    }
-}
-
-.form-group {
-    display: flex;
-    align-items: center;
-    margin: 10px 0px;
-
-    & label {
-        margin-right: 10px;
-    }
-
-    & input {
-        outline: none;
-        padding: 10px;
-        border: 1px solid #d0d0d0;
-        border-radius: 3px;
-        color: #7d7d7d;
-        width: 63%;
-    }
-}
-
 .week-wrapper {
     display: flex;
     flex-flow: row wrap;
     justify-content: flex-start;
     width: 100%;
-    margin: 20px 0px;
+}
+
+.day-wrapper {
+    display: flex;
+    flex-flow: row wrap;
+    width: 100%;
+
+    & span.title {
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        font-size: 30px;
+        margin: 10px 0px;
+        text-transform: uppercase;
+    }
 }
 
 .day {
@@ -135,59 +75,45 @@ body {
     padding: 20px;
     cursor: pointer;
     border: 1px solid #d0d0d0;
-    border-radius: 3px;
+    border-radius: 5px;
     transition: all 200ms ease-in-out;
     margin: 5px 5px 0px 0px;
     text-align: center;
-    width: 126px;
+    width: 252px;
+    height: 126px;
+    font-size: 24px;
 
-    &:hover {
-        background-color: #1565c0;
+    &--focused {
+        background-color: #132b4b;
         color: #FFF;
     }
 
     &--selected {
-        background-color: #1565c0;
+        background-color: #132b4b;
         color: #FFF;
+    }
+
+    &--all-shows {
+        margin: 0px 54px 25px 0px;
+
+        &:nth-child(5n+5) {
+            margin-right: 0;
+        }
+    }
+
+    &--sm {
+        width: 145px;
+        height: 62px;
+    }
+
+    &--sm:not(:last-child) {
+        margin-right: 26px;
     }
 }
 
 .form-footer {
     display: flex;
     justify-content: flex-end;
-}
-
-.btn {
-    outline: none;
-    border: none;
-    padding: 10px 40px;
-    border-radius: 3px;
-    cursor: pointer;
-    text-decoration: none;
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-
-    &--success {
-        background-color: #388E3C;
-        color: #FFF;
-    }
-
-    &--primary {
-        background-color: #1976D2;
-        color: #FFF;
-    }
-}
-
-.m-t {
-
-    &--10 {
-        margin-top: 10px;
-    }
-
-    &--20 {
-        margin-top: 10px;
-    }
 }
 
 .login-form-wrapper {
@@ -199,21 +125,34 @@ body {
     align-items: center;
     margin-top: 200px;
 
+    &__title {
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: center;
+        align-content: center;
+        width: 100%;
+        text-decoration: none;
+
+        & .title {
+            display: inline-flex;
+            align-items: center;
+            font-size: 30px;
+            color: #282828;
+        }
+
+        & img.app-logo {
+            max-width: 55px;
+            max-height: 55px;
+            margin-right: 14px;
+        }
+    }
+
     & form {
         display: flex;
         flex-flow: column;
         width: 500px;
         height: auto;
         justify-content: center;
-
-        & div.form-group {
-            justify-content: flex-end;
-            margin: 10px 0px;
-
-            & input {
-                width: 80%;
-            }
-        }
     }
 }
 
@@ -221,20 +160,21 @@ body {
     display: none;
     flex-flow: row wrap;
     justify-content: space-between;
-    width: 70px;
+    width: 100px;
     position: absolute;
 
     & span {
         display: inline-flex;
         justify-content: center;
         align-items: center;
-        background-color: #fff;
+        background-color: #4d4d4d;
         border-radius: 30px;
-        box-shadow: 0px 0px 10px 0px #000;
+        box-shadow: 0px 2px 1.96px 0.04px rgba(0, 0, 0, 0.5);
+        color: #FFF;
         padding: 3px;
         font-size: 18px;
-        width: 26px;
-        height: 26px;
+        width: 47px;
+        height: 47px;
         cursor: pointer;
         transition: all 200ms ease-in;
     }
@@ -250,14 +190,6 @@ body {
             animation-fill-mode: forwards;
         }
     }
-
-    & span.edit {
-        color: #f57f17;
-    }
-
-    & span.remove {
-        color: #c62828;
-    }
 }
 
 @keyframes slide-up {
@@ -271,5 +203,117 @@ body {
     100% {
         opacity: 1;
         transform: translateY(0px);
+    }
+}
+
+.new-show-form {
+    max-width: 1176px;
+    margin: 0 auto;
+
+    & .week-wrapper {
+        margin: 20px 0px;
+    }
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.6);
+    display: none;
+    flex-flow: row wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal {
+    background-color: #fff;
+    display: flex;
+    padding: 25px;
+    border-radius: 5px;
+    box-shadow: 0px 2px 9.8px 0.2px rgba(0, 0, 0, 0.4);
+    flex-flow: row wrap;
+    justify-content: center;
+    align-items: center;
+    transform: scale(0);
+    transition: all 200ms ease-in;
+    position: relative;
+
+    &__options {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 66px;
+
+        & button.btn--void:not(:last-child) {
+            margin-right: 57px;
+        }
+    }
+
+    &--msg {
+        width: 400px;
+        height: 200px;
+    }
+
+    &--edit {
+        width: 648px;
+
+        & form {
+            width: 90%;
+        }
+
+        & label {
+            width: 20%;
+            font-size: 24px;
+        }
+    }
+
+    & img.check {
+        max-width: 72px;
+    }
+
+    & img.close {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        left: auto;
+        cursor: pointer;
+        max-width: 16px;
+    }
+
+    & h1.title {
+        font-size: 60px;
+        width: 100%;
+        text-align: center;
+
+        &--md {
+            font-size: 24px;
+        }
+    }
+}
+
+.progress {
+    max-width: 65px;
+    transition: all 200ms ease-in;
+
+    &__tick {
+        max-width: 65px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translateY(-50%)translateX(-50%);
+        animation: progress-rotate 1500ms steps(8) infinite;
+    }
+}
+
+@keyframes progress-rotate {
+    0% {
+        transform: translateY(-50%)translateX(-50%)rotate(0deg);
+    }
+    100% {
+        transform: translateY(-50%)translateX(-50%)rotate(360deg);
     }
 }

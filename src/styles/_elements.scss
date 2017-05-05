@@ -1,0 +1,120 @@
+.btn {
+    outline: none;
+    border: none;
+    padding: 5px 40px;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    height: 40px;
+    font-size: 24px;
+
+    &--success {
+        background-color: #00a651;
+        color: #FFF;
+    }
+
+    &--primary {
+        background-color: #00aeef;
+        color: #FFF;
+    }
+
+    &--md {
+        width: 240px;
+    }
+
+    &--register {
+        width: 100%;
+    }
+
+    &--void {
+        border: 1px solid #bdbdbd;
+        background: transparent;
+
+        &:hover {
+            font-weight: bold;
+        }
+    }
+}
+
+.m-t {
+
+    &--10 {
+        margin-top: 10px;
+    }
+
+    &--20 {
+        margin-top: 10px;
+    }
+}
+
+.form-group {
+    display: flex;
+    align-items: center;
+    margin: 10px 0px;
+
+    &__submit {
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: flex-start;
+        align-content: center;
+
+        & button, & a {
+            font-size: 24px;
+        }
+
+        & button:not(:last-child), & a:not(:last-child) {
+            margin-right: 20px;
+        }
+    }
+
+    & label {
+        margin-right: 10px;
+    }
+
+    & input, & select {
+        outline: none;
+        padding: 10px;
+        border: 2px solid #bdbdbd;
+        border-radius: 5px;
+        color: #000;
+        width: 100%;
+        height: 40px;
+        font-size: 19px;
+
+        &::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+            color:    #bdbdbd;
+        }
+
+        &:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+            color:    #bdbdbd;
+        }
+
+        &::-moz-placeholder { /* Mozilla Firefox 19+ */
+            color:    #bdbdbd;
+        }
+
+        &:-ms-input-placeholder { /* Internet Explorer 10-11 */
+            color:    #bdbdbd;
+        }
+    }
+
+    & select {
+        padding: 5px;
+    }
+
+    & input.form-control--error {
+        border: 2px solid #ff0000;
+    }
+}
+
+.error-msg-wrapper {
+    margin-top: 7px;
+}
+
+.error-msg {
+    font-size: 19px;
+    color: #757575;
+}

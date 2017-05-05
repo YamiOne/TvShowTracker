@@ -3,16 +3,39 @@ extends layout
 block head
 
 block content
-    h1= title
-    h3
-        | found a total of 
-        span#count= shows.length
-        |  show(s):
     div#show-list
         div.week-wrapper
-            each show in shows
-                div(class = "day" show_id = show.id)
-                    span= show.title
+            each day, index in groupedShows
+                div.day-wrapper
+                    span(class = "title" day_index = day.day_index)= day.day_name
+                    each show in day.shows
+                        div(class = "day day--all-shows" show_id = show.id)
+                            span= show.title
     div#block-options.block-options
         span(class = "fa fa-pencil edit")
         span(class = "fa fa-times remove")
+
+    div#msg_overlay.overlay
+        div.modal
+            h1.title.title--md Are you sure you want to delete this show?
+            img(src = "img/close_icon.png" alt = "icon" class = "close close-modal")
+            div.modal__options
+                button(type = "button", class = "btn btn--void btn--md" id = "yes_modal_btn") Yes
+                button(type = "button", class = "btn btn--void btn--md close-modal") No
+
+            
+    div#edit_overlay.overlay
+        div.modal.modal--edit
+            img(src = "img/close_icon.png" alt = "icon" class = "close close-modal")
+            form(class = "show_edit" novalidate)
+                div.form-group
+                    label Title:
+                    input(type = "text", name = "title" id = "edit_title" class = "form-control")
+                div.form-group
+                    label Airs on:
+                    select#edit_day
+                        each week_day, index in WEEK_DAYS
+                            option(value = index)= week_day
+            div.modal__options
+                button(type = "button", class = "btn btn--void btn--md close-modal") Cancel
+                button(type = "button", class = "btn btn--void btn--md" id = "edit_modal_btn") Save

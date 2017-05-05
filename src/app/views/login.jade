@@ -2,16 +2,24 @@ extends public_layout
 
 block content
     div.login-form-wrapper
-        h1 TVShow Tracker | Login
+        div.login-form-wrapper__title
+            img(src = "img/tail_tv_icon.png", alt = "logo_icon", class = "app-logo")
+            h1.title TailTV | Login
         
+        if (error)
+            div.error-msg-wrapper
+                span(class = "error-msg") #{error}
         form(action = "/login", method="post")
             div.form-group
-                label Email
-                input(type = "text", class = "form-control", name = "email", placeholder = "Email")
+                input(type = "text", name = "email", placeholder = "Email",
+                    class = (error ? 'form-control form-control--error' : 'form-control')
+                )
             div.form-group
-                label Password
-                input(type = "password", class = "form-control", name = "password", placeholder = "Password")
-            button(type = "submit", class = "btn btn--success btn--login m-t--10") Login
-            a(class = "btn btn--primary m-t--20" href = "/signup") Register account
+                input(type = "password", name = "password", placeholder = "Password"
+                    class = (error ? 'form-control form-control--error' : 'form-control')
+                )
+            div.form-group__submit
+                button(type = "submit", class = "btn btn--success btn--md btn--login") Log in
+                a(class = "btn btn--primary btn--md" href = "/signup") Register
 
 script(src='/js/show.js')
