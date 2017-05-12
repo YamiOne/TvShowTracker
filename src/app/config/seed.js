@@ -5,7 +5,10 @@
 
 'use strict';
 
-// import User from '../models/user';
+import User from '../models/user';
 
-// User.find().remove();
-// console.log('----> REMOVED ALL USERS');
+User.remove({})
+    .then(() => {
+        console.log('----> REMOVED ALL USERS');
+    })
+    .catch(err => console.error(err));

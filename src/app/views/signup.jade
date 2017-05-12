@@ -5,7 +5,7 @@ block content
             div.login-form-wrapper
                 a(class = "login-form-wrapper__title" href = "/")
                     img(src = "img/tail_tv_icon.png", alt = "logo_icon", class = "app-logo")
-                    h1.title TailTV | Login
+                    h1.title TailTV | Register
                     
                 form(action = "/signup", method="post")
                     div.form-group
@@ -13,7 +13,7 @@ block content
                     div.form-group
                         input(type = "password", class = "form-control", name = "password", placeholder = "Password")
                     div.form-group
-                        input(type = "password", class = "form-control", name = "password", placeholder = "Confirm Password")
+                        input(type = "password", class = "form-control", name = "password_repeat", placeholder = "Confirm Password")
                     div.form-group__submit
                         button(type = "submit", class = "btn btn--primary btn--register") Register
         
