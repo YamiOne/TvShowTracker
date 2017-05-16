@@ -7,14 +7,12 @@ block content
                     img(src = "img/tail_tv_icon.png", alt = "logo_icon", class = "app-logo")
                     h1.title TailTV | Register
                     
-                form(action = "/signup", method="post")
+                form(method = "post" id = "reg_form" class = "main" action = "/signup/local")
                     div.form-group
-                        input(type = "text", class = "form-control", name = "email", placeholder = "Email")
+                        input(type = "text", id = "email_input", class = "form-control", name = "email", placeholder = "Email")
                     div.form-group
-                        input(type = "password", class = "form-control", name = "password", placeholder = "Password")
+                        input(type = "password", id = "password_input", class = "form-control", name = "password", placeholder = "Password")
                     div.form-group
                         input(type = "password", class = "form-control", name = "password_repeat", placeholder = "Confirm Password")
                     div.form-group__submit
-                        button(type = "submit", class = "btn btn--primary btn--register") Register
-        
-        script(src='/js/show.js')
+                        button(reg_type = "local", class = "btn btn--register btn--primary register-btn") Register

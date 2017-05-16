@@ -1,7 +1,10 @@
 import User from '../models/user';
 
 // load all the things we need
-var LocalStrategy   = require('passport-local').Strategy;
+const LocalStrategy   = require('passport-local').Strategy;
+const TwitterTokenStrategy = require('passport-twitter');
+const FacebookStrategy = require('passport-facebook');
+const GoogleStrategy = require('passport-google-oauth2').Strategy;
 
 // expose this function to our app using module.exports
 module.exports = function(passport) {
@@ -107,4 +110,89 @@ module.exports = function(passport) {
        });
 
    }));
+
+    // =========================================================================
+    // TWITTER LOGIN ===========================================================
+    // =========================================================================
+    passport.use('twitter-login', new TwitterTokenStrategy({
+            consumerKey: 'cxmpdtErgn9E0d56t5lTDB7Jd',
+            consumerSecret: 'g1i0VErVyll7mLJIlJjLgoJrA8ZNRdbNkQh5dw5ApXZvFA2uz6',
+            callbackURL: "http://localhost:5000/signup/twitter/callback"
+        }, function(token, tokenSecret, profile, done) {
+            process.nextTick(() => {
+                User.findOne({ 'twitter.id': profile.id })
+                    .then((user) => {
+                        if (user) return done(null, user);
+
+                        let newUser = new User();
+                        newUser.twitter.id = profile.id;
+                        newUser.twitter.token    = token;
+                        newUser.twitter.username = profile.username;
+                        newUser.twitter.displayName = profile.displayName;
+
+                        newUser.save()
+                            .then(() => done(null, newUser))
+                            .catch((err) => {throw err;});
+                    })
+                    .catch(err => {throw err;});
+            });
+        }
+    ));
+
+    // =========================================================================
+    // FACEBOOK LOGIN ==========================================================
+    // =========================================================================
+    passport.use('facebook-login', new FacebookStrategy({
+            clientID: '1471797189509155',
+            clientSecret: '2fa7fdd990d98ed47f5ec26c4dfbd57b',
+            callbackURL: "http://localhost:5000/signup/facebook/callback"
+        },
+        function(accessToken, refreshToken, profile, done) {
+            process.nextTick(() => {
+                User.findOne({ 'facebook.id': profile.id })
+                    .then(user => {
+                        if (user) return done(null, user);
+                        
+                        let newUser = new User();
+                        newUser.facebook.id = profile.id;
+                        newUser.facebook.token    = accessToken;
+                        newUser.facebook.username = profile.username;
+                        newUser.facebook.displayName = profile.displayName;
+
+                        newUser.save()
+                            .then(() => done(null, newUser))
+                            .catch((err) => {throw err;});
+                    })
+                    .catch(err => done(err));
+            });
+        }
+    ));
+
+    // =========================================================================
+    // GOOGLE PLUS LOGIN =======================================================
+    // =========================================================================
+    passport.use('google-login', new GoogleStrategy({
+            clientID:     '793021710455-iqa4cc1pneucf2kop95ao36tavceqrka.apps.googleusercontent.com',
+            clientSecret: 'zEG1_zTAsJFtIMYL6jgVdarj',
+            callbackURL: "http://localhost:5000/signup/google/callback",
+            passReqToCallback   : true
+        },
+        function(request, accessToken, refreshToken, profile, done) {
+            process.nextTick(() => {
+                User.findOne({ 'google.id': profile.id})
+                    .then(user => {
+                        if (user) return done(user);
+
+                        var newUser = new User();
+                        newUser.google.id = profile.id;
+                        newUser.google.token = accessToken;
+                        newUser.google.name = profile.displayName;
+                        newUser.save()
+                            .then(() => done(null, newUser))
+                            .catch((err) => {throw err;});
+                    })
+                    .catch(err => done(err));
+            });
+        }
+    ));
 };

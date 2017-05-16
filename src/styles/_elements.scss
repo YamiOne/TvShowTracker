@@ -21,6 +21,31 @@
         color: #FFF;
     }
 
+    &--google {
+        background-color: #dc4e41;
+        color: #FFF;
+    }
+
+    &--facebook {
+        background-color: #3b5998;
+        color: #FFF;
+    }
+
+    &--twitter {
+        background-color: #55acee;
+        color: #FFF;
+    }
+
+    &--img {
+        padding: 0px 20px;
+
+        & img {
+            max-width: 38px;
+            max-height: 38px;
+            margin-left: 9px;
+        }
+    }
+
     &--md {
         width: 240px;
     }
@@ -112,6 +137,7 @@
 
 .error-msg-wrapper {
     margin-top: 7px;
+    width: 68%;
 }
 
 .error-msg {

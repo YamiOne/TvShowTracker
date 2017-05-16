@@ -9,7 +9,7 @@ block content
         if (error)
             div.error-msg-wrapper
                 span(class = "error-msg") #{error}
-        form(action = "/login", method="post")
+        form(action = "/login", method="post" class = "main")
             div.form-group
                 input(type = "text", name = "email", placeholder = "Email",
                     class = (error ? 'form-control form-control--error' : 'form-control')
@@ -21,5 +21,14 @@ block content
             div.form-group__submit
                 button(type = "submit", class = "btn btn--success btn--md btn--login") Log in
                 a(class = "btn btn--primary btn--md" href = "/signup") Register
-
-script(src='/js/show.js')
+        span.separator or
+        form(id = "log_form" class = "external" method = "post" action = "/signup")
+            button(reg_type = "google", class = "btn btn--img btn--md btn--google register-btn") 
+                span Log in with
+                img(src = "img/google_icon.png")
+            button(reg_type = "facebook", class = "btn btn--img btn--md btn--facebook register-btn") 
+                span Log in with
+                img(src = "img/fb_icon.png")
+            button(reg_type = "twitter", class = "btn btn--img btn--md btn--twitter register-btn") 
+                span Log in with
+                img(src = "img/twitter_icon.png")
