@@ -5,7 +5,8 @@
     const BTN_REGISTER = $('.register-btn');
 
     let registerUser = (event) => {
-        let clickedBtn = $(event.target).parents('button')[0];
+        
+        let clickedBtn = event.target.localName === 'button' ? event.target : $(event.target).parents('button')[0];
         const regType = $(clickedBtn).attr('reg_type');
         FORM_REG.attr('action', `signup/${regType}`);
         FORM_REG.submit();
