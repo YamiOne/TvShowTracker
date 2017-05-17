@@ -74,13 +74,17 @@ const LINT = new Set([...TRANSPILE, 'scripts']);
 // default task is the same as serve
 gulp.task('default', ['serve']);
 // start express server and reload when server-side files change
-gulp.task('serve', ['watch'], () =>
+gulp.task('serve', ['set_env', 'watch'], () =>
   $.nodemon({
     script: path.join(DEST, 'app.js'),
     watch: path.join(DEST, '**/*.js'),
     ignore: path.join(DEST, 'static')
   })
 );
+
+gulp.task('set_env', () => {
+  process.env.NODE_ENV = 'development';
+});
 
 // watch all source files for changes
 gulp.task('watch', ['build'], () => {

@@ -1,10 +1,10 @@
-import User from '../models/user';
-
-// load all the things we need
 const LocalStrategy   = require('passport-local').Strategy;
 const TwitterTokenStrategy = require('passport-twitter');
 const FacebookStrategy = require('passport-facebook');
 const GoogleStrategy = require('passport-google-oauth2').Strategy;
+
+import User from '../models/user';
+import PassportConfig from './token.config';
 
 // expose this function to our app using module.exports
 module.exports = function(passport) {
@@ -108,16 +108,15 @@ module.exports = function(passport) {
            // all is well, return successful user
            return done(null, user);
        });
-
    }));
 
     // =========================================================================
     // TWITTER LOGIN ===========================================================
     // =========================================================================
     passport.use('twitter-login', new TwitterTokenStrategy({
-            consumerKey: 'cxmpdtErgn9E0d56t5lTDB7Jd',
-            consumerSecret: 'g1i0VErVyll7mLJIlJjLgoJrA8ZNRdbNkQh5dw5ApXZvFA2uz6',
-            callbackURL: "http://localhost:5000/signup/twitter/callback"
+            consumerKey:  PassportConfig.twitter.id,
+            consumerSecret: PassportConfig.twitter.secret,
+            callbackURL: PassportConfig.twitter.callback
         }, function(token, tokenSecret, profile, done) {
             process.nextTick(() => {
                 User.findOne({ 'twitter.id': profile.id })
@@ -130,9 +129,9 @@ module.exports = function(passport) {
                         newUser.twitter.username = profile.username;
                         newUser.twitter.displayName = profile.displayName;
 
-                        newUser.save()
-                            .then(() => done(null, newUser))
-                            .catch((err) => {throw err;});
+                        return newUser.save()
+                                .then(() => done(null, newUser))
+                                .catch((err) => {throw err;});
                     })
                     .catch(err => {throw err;});
             });
@@ -143,9 +142,9 @@ module.exports = function(passport) {
     // FACEBOOK LOGIN ==========================================================
     // =========================================================================
     passport.use('facebook-login', new FacebookStrategy({
-            clientID: '1471797189509155',
-            clientSecret: '2fa7fdd990d98ed47f5ec26c4dfbd57b',
-            callbackURL: "http://localhost:5000/signup/facebook/callback"
+            clientID: PassportConfig.facebook.id,
+            clientSecret: PassportConfig.facebook.secret,
+            callbackURL: PassportConfig.facebook.callback
         },
         function(accessToken, refreshToken, profile, done) {
             process.nextTick(() => {
@@ -159,9 +158,9 @@ module.exports = function(passport) {
                         newUser.facebook.username = profile.username;
                         newUser.facebook.displayName = profile.displayName;
 
-                        newUser.save()
-                            .then(() => done(null, newUser))
-                            .catch((err) => {throw err;});
+                        return newUser.save()
+                                .then(() => done(null, newUser))
+                                .catch((err) => {throw err;});
                     })
                     .catch(err => done(err));
             });
@@ -172,9 +171,9 @@ module.exports = function(passport) {
     // GOOGLE PLUS LOGIN =======================================================
     // =========================================================================
     passport.use('google-login', new GoogleStrategy({
-            clientID:     '793021710455-iqa4cc1pneucf2kop95ao36tavceqrka.apps.googleusercontent.com',
-            clientSecret: 'zEG1_zTAsJFtIMYL6jgVdarj',
-            callbackURL: "http://localhost:5000/signup/google/callback",
+            clientID:     PassportConfig.google.id,
+            clientSecret: PassportConfig.google.secret,
+            callbackURL: PassportConfig.google.callback,
             passReqToCallback   : true
         },
         function(request, accessToken, refreshToken, profile, done) {
@@ -187,9 +186,10 @@ module.exports = function(passport) {
                         newUser.google.id = profile.id;
                         newUser.google.token = accessToken;
                         newUser.google.name = profile.displayName;
-                        newUser.save()
-                            .then(() => done(null, newUser))
-                            .catch((err) => {throw err;});
+
+                        return newUser.save()
+                                .then(() => done(null, newUser))
+                                .catch((err) => {throw err;});
                     })
                     .catch(err => done(err));
             });
