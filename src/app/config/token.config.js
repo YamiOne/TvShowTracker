@@ -23,7 +23,7 @@ const config = {
             callback: 'http://mydevzone.com:5000/signup/facebook/callback'
         },
         twitter: {
-            id: 'JIqpZiXoXAZv5a6n74TB1njF2 ',
+            id: 'JIqpZiXoXAZv5a6n74TB1njF2',
             secret: 'NBO5yspkdFXsKxefFMcB2YYpFITAlk1F5qpDo8sCKGiLQBBGrX',
             callback: '	http://mydevzone.com:5000/signup/twitter/callback'
         },
